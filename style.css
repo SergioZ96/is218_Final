@@ -67,6 +67,7 @@
 }
 
 #logout_btn {
+	margin-bottom:20px;
 	margin-top:10px;
 	background-color:#c0392b;
 	padding:5px;
