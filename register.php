@@ -52,15 +52,28 @@
 			$gender = $_POST['gender'];
 
 			global $db;
-			$query="'SELECT * FROM UsersAccount 
-					WHERE Email='$useremail'";
+			$query="SELECT * FROM UsersAccount 
+				   	 WHERE Email=:useremail";
 
-			$query_run=$db->prepare($query);
+			$query_run=$db->query($query);
 			$num_rows = $query_run->fetchColumn();
 			if($num_rows > 0)
 			{
 				//there is already a user with the same username
 				echo '<script type="text/javascript"> alert("Email is already being used. Try another email.") </script>';
+			}
+			else {
+				$query = "INSERT INTO UsersAccount
+						  VALUES('$firstname','$lastname','$useremail','$phnumber','$birthday','$gender')";
+				$query_run=$db->prepare($query);
+				if($query_run == false)
+				{
+					echo '<script type="text/javascript"> alert("User Registered. Go to Login Page") </script>';
+				}
+				else
+				{
+					echo '<script type="text/javascript"> alert("Error!") </script>';
+				}
 			}
 
 		}
